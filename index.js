@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const homeRoutes = require('./routes/home');
+const addRoutes = require('./routes/add');
+const coursesRoutes = require('./routes/courses');
 
 const app = express();
 
@@ -15,20 +18,14 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 // folder in which templates will be stored
 app.set('views', 'views');
-// add midlleware
+
+// add middleware
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
 
-app.get('/', (req, res) => {
-   // when using HTML
-   // res.sendFile(path.join(__dirname, 'views', 'index.html'));
-   res.render('index');
-});
-
-app.get('/about', (req, res) => {
-   // when using HTML
-   // res.sendFile(path.join(__dirname, 'views', 'about.html'));
-   res.render('about');
-});
+app.use('/', homeRoutes);
+app.use('/add', addRoutes);
+app.use('/courses', coursesRoutes);
 
 const PORT = process.env.PORT || 3000;
 
