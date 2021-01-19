@@ -37,3 +37,13 @@
 .course .price.big {
    font-size: 2.5rem;
 }
+
+.card-triggers-wrapper {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.navbar-item {
+   display: flex;
+}
