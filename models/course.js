@@ -1,84 +1,105 @@
-const { v4: uuid4 } = require('uuid');
-const fs = require('fs');
-const path = require('path');
+// MODEL FOR MONGOOSE
+const {Schema, model} = require('mongoose');
 
-class Course {
-   constructor(title, price, img) {
-      this.title = title;
-      this.price = price;
-      this.img = img;
-      this.id = uuid4();
-   }
+const course = new Schema({
+   title: {
+      type: String,
+      required: true
+   },
+   price: {
+      type: Number,
+      required: true
+   },
+   img: String
+});
 
-   getInfoCourse() {
-      return {
-         title: this.title,
-         price: this.price,
-         img: this.img,
-         id: this.id
-      };
-   }
+module.exports = model('Course', course);
 
-   static async update(course) {
-      const courses = await Course.getAll();
+///////////////////////////////////////////
 
-      const idx = courses.findIndex(c => c.id === course.id);
-      courses[idx] = course;
+// COMMON MODEL
 
-      return new Promise((resolve, reject) => {
-         fs.writeFile(
-            path.join(__dirname, '../data', 'courses.json'),
-            JSON.stringify(courses),
-            (err) => {
-               if (err) {
-                  reject(err);
-               } else {
-                  resolve();
-               }
-            }
-         );
-      });
-   }
+// const { v4: uuid4 } = require('uuid');
+// const fs = require('fs');
+// const path = require('path');
 
-   async save() {
-      const courses = await Course.getAll();
-      courses.push(this.getInfoCourse());
+// class Course {
+//    constructor(title, price, img) {
+//       this.title = title;
+//       this.price = price;
+//       this.img = img;
+//       this.id = uuid4();
+//    }
 
-      return new Promise((resolve, reject) => {
-         fs.writeFile(
-            path.join(__dirname, '../data', 'courses.json'),
-            JSON.stringify(courses),
-            (err) => {
-               if (err) {
-                  reject(err);
-               } else {
-                  resolve();
-               }
-            }
-         );
-      });
-   }
+//    getInfoCourse() {
+//       return {
+//          title: this.title,
+//          price: this.price,
+//          img: this.img,
+//          id: this.id
+//       };
+//    }
 
-   static getAll() {
-      return new Promise((resolve, reject) => {
-         fs.readFile(
-            path.join(__dirname, '../data', 'courses.json'),
-            'utf-8',
-            (err, content) => {
-               if (err) {
-                  reject(err);
-               } else {
-                  resolve(JSON.parse(content));
-               }
-            }
-         );
-      });
-   }
+//    static async update(course) {
+//       const courses = await Course.getAll();
 
-   static async getById(id) {
-      const courses = await Course.getAll();
-      return courses.find(c => c.id == id);
-   }
-}
+//       const idx = courses.findIndex(c => c.id === course.id);
+//       courses[idx] = course;
 
-module.exports = Course;
+//       return new Promise((resolve, reject) => {
+//          fs.writeFile(
+//             path.join(__dirname, '../data', 'courses.json'),
+//             JSON.stringify(courses),
+//             (err) => {
+//                if (err) {
+//                   reject(err);
+//                } else {
+//                   resolve();
+//                }
+//             }
+//          );
+//       });
+//    }
+
+//    async save() {
+//       const courses = await Course.getAll();
+//       courses.push(this.getInfoCourse());
+
+//       return new Promise((resolve, reject) => {
+//          fs.writeFile(
+//             path.join(__dirname, '../data', 'courses.json'),
+//             JSON.stringify(courses),
+//             (err) => {
+//                if (err) {
+//                   reject(err);
+//                } else {
+//                   resolve();
+//                }
+//             }
+//          );
+//       });
+//    }
+
+//    static getAll() {
+//       return new Promise((resolve, reject) => {
+//          fs.readFile(
+//             path.join(__dirname, '../data', 'courses.json'),
+//             'utf-8',
+//             (err, content) => {
+//                if (err) {
+//                   reject(err);
+//                } else {
+//                   resolve(JSON.parse(content));
+//                }
+//             }
+//          );
+//       });
+//    }
+
+//    static async getById(id) {
+//       const courses = await Course.getAll();
+//       return courses.find(c => c.id == id);
+//    }
+// }
+
+// module.exports = Course;
