@@ -3,7 +3,8 @@ const toCurrency = price => {
       currency: 'usd',
       style: 'currency'
    }).format(price);
-}
+};
+
 document.querySelectorAll('.price').forEach(node => {
    node.textContent = toCurrency(node.textContent);
 });
@@ -14,10 +15,10 @@ if ($cartItems) {
    $cartItems.addEventListener('click', event => {
       if (event.target.classList.contains('remove-item-from-cart')) {
          const id = event.target.dataset.id;
-         
+
          fetch(`/cart/remove/${id}`, {
-            method: 'delete'
-         })
+               method: 'delete'
+            })
             .then(res => res.json())
             .then(cart => {
                if (cart.courses.length) {
