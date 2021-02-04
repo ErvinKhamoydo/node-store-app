@@ -1,13 +1,16 @@
 const express = require('express');
 const handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+const {
+   allowInsecurePrototypeAccess
+} = require('@handlebars/allow-prototype-access');
 const path = require('path');
 const mongoose = require('mongoose');
 const homeRoutes = require('./routes/home');
 const addRoutes = require('./routes/add');
 const coursesRoutes = require('./routes/courses');
 const cartRoutes = require('./routes/cart');
+const User = require('./models/user');
 
 const app = express();
 
@@ -23,6 +26,16 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 // folder in which templates will be stored
 app.set('views', 'views');
+
+app.use(async (req, res, next) => {
+   try {
+      const user = await User.findById('601a87f76e26e74778605a92');
+      req.user = user;
+      next();
+   } catch (error) {
+      console.log(error);
+   }
+});
 
 // add middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -45,6 +58,20 @@ async function start() {
          useUnifiedTopology: true,
          useFindAndModify: false
       });
+
+      const candidate = await User.findOne();
+
+      if (!candidate) {
+         const user = new User({
+            email: 'hamoydoerik@gmail.com',
+            name: 'Ervin',
+            cart: {
+               items: []
+            }
+         });
+
+         await user.save();
+      }
 
       app.listen(PORT, () => {
          console.log(`Server is running on port ${PORT}`);

@@ -6,7 +6,9 @@ const router = Router();
 router.get('/', async (req, res) => {
    // Without Mongoose
    // const courses = await Course.getAll();
-   const courses = await Course.find();
+   const courses = await Course.find()
+      .populate('userId', 'email name')
+      .select('title price img');
    
    res.render('courses', {
       title: 'Courses',
