@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const homeRoutes = require('./routes/home');
 const addRoutes = require('./routes/add');
 const coursesRoutes = require('./routes/courses');
+const ordersRoutes = require('./routes/orders');
 const cartRoutes = require('./routes/cart');
 const User = require('./models/user');
 
@@ -47,6 +48,7 @@ app.use('/', homeRoutes);
 app.use('/add', addRoutes);
 app.use('/courses', coursesRoutes);
 app.use('/cart', cartRoutes);
+app.use('/orders', ordersRoutes);
 
 const PORT = process.env.PORT || 3000;
 

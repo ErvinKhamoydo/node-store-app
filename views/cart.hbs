@@ -27,6 +27,10 @@
          <strong>Price:</strong>
          <span class="cart-total-price price">{{price}}</span>
       </p>
+
+      <form action="/orders" method="POST">
+         <button type="submit" class="btn">Buy</button>
+      </form>
    {{else}}
       <p>Cart is empty</p>
    {{/if}}
