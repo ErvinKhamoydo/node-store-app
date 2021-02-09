@@ -56,3 +56,8 @@
 #remove-course {
    margin-top: 1rem;
 }
+
+.cart-total-price {
+   font-size: 1.2rem;
+   font-weight: 600;
+}
