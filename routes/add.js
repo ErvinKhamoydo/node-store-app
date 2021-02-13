@@ -1,16 +1,17 @@
 const { Router } = require('express');
 const Course = require('../models/course');
+const auth = require('../middleware/auth');
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
    res.render('add', {
       title: 'Add new course',
       isAdd: true
    });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
    // Without Mongoose
    // const course = new Course(req.body.title, req.body.price, req.body.img);
 

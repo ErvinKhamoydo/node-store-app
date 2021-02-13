@@ -65,3 +65,13 @@
 .order-card {
    height: auto;
 }
+
+.auth {
+   padding-top: 1rem;
+}
+
+.alert {
+   padding: 0.5rem 0;
+   color: rgb(231, 15, 15);
+   font-weight: 700;
+}

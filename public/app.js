@@ -30,9 +30,13 @@ if ($cartItems) {
    $cartItems.addEventListener('click', event => {
       if (event.target.classList.contains('remove-item-from-cart')) {
          const id = event.target.dataset.id;
+         const csrf = event.target.dataset.csrf;
 
          fetch(`/cart/remove/${id}`, {
-               method: 'delete'
+               method: 'delete',
+               headers: {
+                  'X-XSRF-TOKEN': csrf
+               }
             })
             .then(res => res.json())
             .then(cart => {
@@ -58,3 +62,6 @@ if ($cartItems) {
       }
    });
 }
+
+// init Tabs (auth)
+M.Tabs.init(document.querySelectorAll('.tabs'));
