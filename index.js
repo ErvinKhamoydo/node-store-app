@@ -16,6 +16,8 @@ const ordersRoutes = require('./routes/orders');
 const cartRoutes = require('./routes/cart');
 const authRoutes = require('./routes/auth');
 
+const keys = require('./keys');
+
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 
@@ -27,11 +29,9 @@ const hbs = exphbs.create({
    handlebars: allowInsecurePrototypeAccess(handlebars)
 });
 
-const MONGODB_URI = `mongodb+srv://ervin_khamoido:HC7pdifd3Lymwc2F@cluster0.ig4sx.mongodb.net/store?retryWrites=true&w=majority`;
-
 const store = new MongoStore({
    collection: 'sessions',
-   uri: MONGODB_URI
+   uri: keys.MONGODB_URI
 });
 
 // engine registration
@@ -47,7 +47,7 @@ app.use(express.urlencoded({
    extended: true
 }));
 app.use(session({
-   secret: 'some secter value',
+   secret: keys.SESSION_SECRET,
    resave: false,
    saveUninitialized: false,
    store
@@ -69,7 +69,7 @@ const PORT = process.env.PORT || 3000;
 
 async function start() {
    try {
-      await mongoose.connect(MONGODB_URI, {
+      await mongoose.connect(keys.MONGODB_URI, {
          useNewUrlParser: true,
          useUnifiedTopology: true,
          useFindAndModify: false
