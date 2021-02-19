@@ -10,8 +10,6 @@ function isOwner(course, req) {
 
 router.get('/', async (req, res) => {
    try {
-      // Without Mongoose
-      // const courses = await Course.getAll();
       const courses = await Course.find()
          .populate('userId', 'email name')
          .select('title price img');
@@ -33,8 +31,6 @@ router.get('/:id/edit', auth, async (req, res) => {
    }
 
    try {
-      // Without Mongoose
-      // const course = await Course.getById(req.params.id);
       const course = await Course.findById(req.params.id);
 
       if (!isOwner(course, req)) {
@@ -52,8 +48,6 @@ router.get('/:id/edit', auth, async (req, res) => {
 
 router.post('/edit', auth, async (req, res) => {
    try {
-      // Without Mongoose
-      // await Course.update(req.body);
       const {id} = req.body;
       delete req.body.id;
       
@@ -86,8 +80,6 @@ router.post('/remove', auth, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
    try {
-      // Without Mongoose
-      // const course = await Course.getById(req.params.id);
       const course = await Course.findById(req.params.id);
       res.render('course', {
          layout: 'empty',
