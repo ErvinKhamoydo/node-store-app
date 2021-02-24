@@ -75,3 +75,21 @@
    color: rgb(231, 15, 15);
    font-weight: 700;
 }
+
+.not-found-title, .not-found-subtitle {
+   text-align: center;
+}
+
+.not-found-subtitle {
+   margin: 60px 0;
+   font-size: 35px;
+}
+
+.not-found-btn {
+   margin-left: 50%;
+   transform: translateX(-50%);
+}
+
+.not-found-link {
+   color: #fff;
+}

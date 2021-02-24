@@ -20,6 +20,7 @@ const keys = require('./keys');
 
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
+const errorMiddleware = require('./middleware/error');
 
 const app = express();
 
@@ -65,6 +66,8 @@ app.use('/courses', coursesRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', ordersRoutes);
 app.use('/auth', authRoutes);
+
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
