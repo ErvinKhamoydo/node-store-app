@@ -25,7 +25,6 @@ router.post('/add', auth, async (req, res) => {
 });
 
 router.delete('/remove/:id', auth, async (req, res) => {
-   console.log(req);
    await req.user.removeFromCart(req.params.id);
    const user = await req.user
       .populate('cart.items.courseId')

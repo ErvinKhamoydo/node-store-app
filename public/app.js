@@ -35,7 +35,9 @@ if ($cartItems) {
          fetch(`/cart/remove/${id}`, {
                method: 'delete',
                headers: {
-                  'X-XSRF-TOKEN': csrf
+                  'X-XSRF-TOKEN': csrf,
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
                }
             })
             .then(res => res.json())
@@ -47,7 +49,11 @@ if ($cartItems) {
                            <td>${c.title}</td>
                            <td>${c.count}</td>
                            <td>
-                              <button class="btn btn-small remove-item-from-cart" data-id="${c.id}">Delete</button>
+                              <button 
+                                 class="btn btn-small remove-item-from-cart" 
+                                 data-id="${c.id}"
+                                 data-csrf="${csrf}"
+                              >Delete</button>
                            </td>
                         </tr>
                      `;
