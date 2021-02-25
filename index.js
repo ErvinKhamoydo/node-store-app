@@ -8,6 +8,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
+const helmet = require('helmet');
 
 const homeRoutes = require('./routes/home');
 const addRoutes = require('./routes/add');
@@ -60,6 +61,16 @@ app.use(session({
 app.use(fileMiddleware.single('avatar'));
 app.use(csrf());
 app.use(flash());
+app.use(
+   helmet({
+      contentSecurityPolicy: {
+         directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "img-src": ["'self'", "https:"],
+         },
+      },
+   })
+);
 
 app.use(varMiddleware);
 app.use(userMiddleware);
