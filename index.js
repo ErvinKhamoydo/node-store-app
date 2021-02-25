@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
 const helmet = require('helmet');
+const compression = require('compression');
 
 const homeRoutes = require('./routes/home');
 const addRoutes = require('./routes/add');
@@ -71,6 +72,7 @@ app.use(
       },
    })
 );
+app.use(compression());
 
 app.use(varMiddleware);
 app.use(userMiddleware);
